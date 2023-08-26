@@ -10,10 +10,13 @@ function savetolocal(event) {
   };
   // localStorage.setItem(description, JSON.stringify(obj));
   axios
-    .post("http://localhost:3000/expenses/add-expense", obj)
+    .post(
+      "https://crudcrud.com/api/716dbb2aa61244669f49989da8156f24/expenses",
+      obj
+    )
     .then((response) => {
-      console.log(response);
-      display(response.data.newExpense);
+      console.log(response.data);
+      display(response.data);
     })
     .catch((err) => {
       console.log(err);
@@ -33,7 +36,9 @@ function display(obj) {
   deletebtn.onclick = () => {
     // localStorage.removeItem(obj.description);
     axios
-      .delete(`http://localhost:3000/expenses/delete-expense/${obj.id}`)
+      .delete(
+        `https://crudcrud.com/api/716dbb2aa61244669f49989da8156f24/expenses/${obj._id}`
+      )
       .then((response) => {
         console.log(response);
         expenselist.removeChild(li);
@@ -49,7 +54,9 @@ function display(obj) {
   editbtn.onclick = () => {
     // localStorage.removeItem(obj.description);
     axios
-      .delete(`http://localhost:3000/expenses/edit-expense/${obj.id}`)
+      .delete(
+        `https://crudcrud.com/api/716dbb2aa61244669f49989da8156f24/expenses/${obj._id}`
+      )
       .then((res) => {
         console.log(res);
         expenselist.removeChild(li);
@@ -60,6 +67,7 @@ function display(obj) {
         console.log(err);
       });
   };
+
   li.appendChild(editbtn); //adding edit button to li
   li.appendChild(deletebtn); //adding delete button to li
   expenselist.appendChild(li); //Append li element to list
@@ -69,7 +77,7 @@ function display(obj) {
 
 window.addEventListener("DOMContentLoaded", () => {
   axios
-    .get("http://localhost:3000/expenses/get-expenses")
+    .get("https://crudcrud.com/api/716dbb2aa61244669f49989da8156f24/expenses")
     .then((res) => {
       console.log(res.data);
       res.data.map((expense) => {
