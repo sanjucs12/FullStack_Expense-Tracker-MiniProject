@@ -1,20 +1,15 @@
 const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
-const sequelize = require("./utils/expense");
-const Expense = require("./utils/expense");
-
-const controller = require("./controllers/controller");
+const sequelize = require("./BACKEND/utils/database");
+const expenseRoutes = require("./BACKEND/routes/expense-router");
 
 const app = express();
 
 app.use(bodyParser.json());
 app.use(cors());
 
-app.post("/expenses/add-expense", controller.addExpense);
-app.get("/expenses/get-expenses", controller.getExpenses);
-app.delete("/expenses/delete-expense/:id", controller.deleteExpense);
-app.delete("/expenses/edit-expense/:id", controller.editExpense);
+app.use(expenseRoutes);
 
 sequelize
   .sync()
